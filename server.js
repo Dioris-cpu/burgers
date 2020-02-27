@@ -1,6 +1,7 @@
 
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const express = require('express')
+const db = require("./models/index")
 const app = express()
 const port = 3000
 
@@ -9,9 +10,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Hello World!'));
 
+db.sequelize.sync().then(()=>{
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+})
 
 
 
