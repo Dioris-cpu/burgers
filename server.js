@@ -21,7 +21,11 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use('/api', apiRouter);
-app.get('/', (req, res) => res.render('home'));
+app.get('/', async (req, res) => {
+    const burgers = await db.Burger.findAll();
+    console.log(burgers)
+    res.render('home', {burgers})
+});
 
 db.sequelize.sync().then(()=>{
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
