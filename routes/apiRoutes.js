@@ -8,6 +8,21 @@ router.get('/burgers', async (_, res)=>{
 
     res.json(data);
 })
+
+router.post('/burger/new',async (req, res)=>{
+    const { name } = req.body;
+
+    await db.Burger.create({
+        name,
+        isDevoured: false
+         
+    });
+    res.status(200).end();
+});
+
+
+
+
 router.put('/burger/:id/devour',async (req, res)=>{
     const { id } = req.params;
     res.send(id)
