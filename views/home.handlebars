@@ -1,29 +1,5 @@
-<style>
-    .img-container{
-        display: flex;
-        justify-content: center;
-    }
-    .title{
-        text-align: center;
-    }
-    .lists-container{
-        display: flex;
-        justify-content: space-around;
-    }
-    .input-container{
-        display: flex;
-        justify-content: center;
 
-    }
-
-    input {
-        width: 400px;
-        height: 30px;
-        border-radius: 6px;
-        outline:none;
-    }
-</style>
-
+<link rel="stylesheet" href="/css/style.css">
 <div class="container">
     <div class="img-container">
         <img src="https://images-na.ssl-images-amazon.com/images/I/71f749qfqCL._AC_SX466_.jpg" alt="kawaii Burger">
@@ -31,65 +7,37 @@
     <h1 class="title">Eat-Da-Burger</h1>
     <div class="lists-continer">
         {{!-- This is not Devoured --}}
-       
-        <ul>
+       <h3>Not Devoured</h3>
+        <div>
          {{#each burgers}}
             {{#with dataValues}}
             {{#unless isDevoured}}
-         <li>
-             Name: {{ name }} <button class="devour" data-id="{{id}}">Devour it </button>
-         </li>
+         <div>
+              {{ name }} <button class="devour" data-id="{{id}}">Devour it </button>
+         </div>
             {{/unless}}
             {{/with}}
          {{/each}}
-        </ul>
+        </div>
         {{!-- This is Devoured --}}
-        
-        <ul>
+        <h3>Devoured</h3>
+        <div>
         {{#each burgers}}
              {{#if dataValues.isDevoured}}
-         <li>
-             Name: {{ dataValues.name }} 
+         <div>
+             {{ dataValues.name }} 
          </li>
             {{/if}}
          {{/each}}
-        </ul>
+        </div>
     </div>
+
     <div class="input-container">
-         <input type="text" id="newBurger">
+         <input type="text" id="newBurger" placeholder="Enter Burger Name">
     </div>
    
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
 
-
-<script>
-    $('#newBurger').keydown(async (e) => {
-        //when the user hits enter
-        if( e.keyCode === 13 ){
-           const $currentTarget = $(e.currentTarget);
-           const currentValue = $currentTarget.val();
-            await $.ajax({
-            method: 'POST',
-            url: `/api/burger/new`,
-            data: {
-                name:currentValue,
-            }
-        });
-            location.reload();
-        }
-
-    });
-
-    $('.devour').click( async (e) => {
-        const $currentTarget = $(e.currentTarget);
-        const id = $currentTarget.data('id');
-       await $.ajax({
-            method: 'PUT',
-            url: `/api/burger/${id}/devour`
-        });
-        location.reload();
-    });
-    
-</script>
+<script src="/js/script.js"></script>

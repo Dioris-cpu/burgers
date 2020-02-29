@@ -5,7 +5,7 @@ const exphbs  = require('express-handlebars');
 const db = require("./models/index")
 const apiRouter = require('./routes/apiRoutes');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -19,6 +19,7 @@ const hbs = exphbs.create();
 // Register `hbs.engine` with the Express app.
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+app.use(express.static('public'))
 
 app.use('/api', apiRouter);
 app.get('/', async (req, res) => {
